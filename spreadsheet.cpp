@@ -15,6 +15,9 @@ void Spreadsheet::set_selection(Select* new_select)
     select = new_select;
 }
 
+void Spreadsheet::print_selection(std::ostream& out) const{
+}
+
 void Spreadsheet::clear()
 {
     column_names.clear();
