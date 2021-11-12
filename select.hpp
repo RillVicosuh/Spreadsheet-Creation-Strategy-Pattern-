@@ -6,6 +6,7 @@
 #include <string>
 #include "spreadsheet.hpp"
 using namespace std;
+
 class Select
 {
 public:
@@ -57,6 +58,27 @@ class Select_Contains: public Select_Column {
             return false;
         }
     }
+};
+
+class Select_Not: public Select
+{
+  private:
+    Select* select1;
+  public:
+    Select_Not(Select* select1_){
+        select1 = select1_;
+    }
+    virtual bool select(const Spreadsheet* sheet, int row) const
+    {
+        return !(select1->select(sheet, row));
+    }
+
+    ~Select_Not() {
+        delete select1;
+        select1 = nullptr;
+
+        }
+
 };
 
 class Select_And: public Select{
