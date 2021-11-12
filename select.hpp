@@ -2,6 +2,10 @@
 #define __SELECT_HPP__
 
 #include <cstring>
+#include <iostream>
+#include <string>
+#include "spreadsheet.hpp"
+using namespace std;
 
 class Select
 {
@@ -38,4 +42,42 @@ public:
     virtual bool select(const std::string& s) const = 0;
 };
 
+class Select_Contains: public Select_Column {
+  private:
+    string item;
+  public:
+    Select_Contains(const Spreadsheet* sheet, const string& temp, const string& temp2) : Select_Column(sheet, temp) {
+        item = temp2;
+    }
+
+    virtual bool select(const string& s) const {
+        if(s.find(item) != string::npos){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+};
+
+class Select_Not: public Select
+{
+  private:
+    Select* select1;
+  public:
+    Select_Not(Select* select1_){
+        select1 = select1_;
+    }
+    virtual bool select(const Spreadsheet* sheet, int row) const
+    {
+        return !(select1->select(sheet, row));
+    }
+
+    ~Select_Not() {
+	delete select1;
+	select1 = nullptr;
+
+	}
+
+};
 #endif //__SELECT_HPP__
