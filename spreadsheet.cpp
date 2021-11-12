@@ -7,6 +7,7 @@
 Spreadsheet::~Spreadsheet()
 {
     delete select;
+    select = nullptr;
 }
 
 void Spreadsheet::set_selection(Select* new_select)
@@ -27,8 +28,8 @@ void Spreadsheet::print_selection(std::ostream& out) const{
     }
   }
   else{
-    for(int i= 0; i < column_names.size(); i++){
-      for(int j = 0; j < data.size(); j++){
+    for(int i= 0; i < data.size(); i++){
+      for(int j = 0; j < data[i].size(); j++){
         out << data[i][j] << " ";
       }  
       out << endl;
