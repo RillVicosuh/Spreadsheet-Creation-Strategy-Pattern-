@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include "select.hpp"
 #include "spreadsheet.cpp"
+
 TEST(SelectAndTest, RegAndTest){
   Spreadsheet sheet;
   sheet.set_column_names({"First","Last","Age","Major"});
