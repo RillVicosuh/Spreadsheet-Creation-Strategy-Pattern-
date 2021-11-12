@@ -2,7 +2,8 @@
 #define _SPREADSHEET_TEST_HPP
 
 #include "gtest/gtest.h"
-#include "spreadsheet.hpp"
+#include "select.hpp"
+#include "spreadsheet.cpp"
 
 
 #endif //_SPREADSHEET_TEST_HPP
