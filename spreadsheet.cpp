@@ -18,7 +18,7 @@ void Spreadsheet::set_selection(Select* new_select)
 void Spreadsheet::print_selection(std::ostream& out) const{
   if(select != nullptr){
     for(int r = 0; r < data.size(); r++){
-      if(this->select->(this,r)){
+      if(this->select->select(this,r)){
         for(int a = 0; a < data[0].size(); a++){
           out << data[r][a] << " ";
         }
