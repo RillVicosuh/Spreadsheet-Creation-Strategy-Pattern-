@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master , RillVicosuh/select_not_branch]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 

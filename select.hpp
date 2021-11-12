@@ -1,8 +1,8 @@
 #ifndef __SELECT_HPP__
 #define __SELECT_HPP__
 
-#include <cstring>
 #include <iostream>
+#include <cstring>
 #include <string>
 #include "spreadsheet.hpp"
 using namespace std;
@@ -43,21 +43,42 @@ public:
 };
 
 class Select_Contains: public Select_Column {
-  private:
+private:
     string item;
-  public:
+public:
     Select_Contains(const Spreadsheet* sheet, const string& temp, const string& temp2) : Select_Column(sheet, temp) {
-        item = temp2;
-    }
-
+	item = temp2;
+}
     virtual bool select(const string& s) const {
-        if(s.find(item) != string::npos){
-            return true;
-        }
-        else{
-            return false;
-        }
+	if(s.find(item) != string::npos) { 
+	    return true;
+	}
+	else{
+	    return false;
+	}
     }
+};
+
+class Select_Or: public Select {
+ private:
+   Select* select1;
+   Select* select2;
+ public:
+   Select_Or(Select* select1_, Select* select2_) {
+     select1 = select1_;
+     select2 = select2_;
+  }
+  ~Select_Or() {
+     delete select1;
+     delete select2;
+     select1 = nullptr;
+     select2 = nullptr;
+  }
+  virtual bool select(const Spreadsheet* sheet, int row) const{
+    bool x = select1->select(sheet, row);
+    bool y = select2->select(sheet, row);
+    return (x || y);
+  }     
 };
 
 class Select_Not: public Select
@@ -77,7 +98,7 @@ class Select_Not: public Select
         delete select1;
         select1 = nullptr;
 
-        }
+    }
 
 };
 
